@@ -8,7 +8,9 @@ public class Sample {
         sample.printAllCodes();
         sample.printOddCodes();
         sample.printSpadeCodes();
-        sample.printdiamondCodes();
+        sample.printDiamondCodes();
+        sample.printNot3Codes1();
+        sample.printNot3Codes2();
     }
     void hello() {
         System.out.println("Hello world");
@@ -38,7 +40,7 @@ public class Sample {
         }
         System.out.println();
     }
-    void printdiamondCodes() {
+    void printDiamondCodes() {
         for(int i = 1; i <= 52; i++) {
             if(i >= 27 && i <= 39) {
                 System.out.print(i + " ");
@@ -46,5 +48,22 @@ public class Sample {
         }
         System.out.println();
     }
+    void printNot3Codes1() {
+        for(int i = 1; i <= 52; i++) {
+            if (i % 3 != 0) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+    void printNot3Codes2() {
+        for(int i = 0; i <= 52; i++) {
+            if(i % 3 != 0) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+
 
 }
