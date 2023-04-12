@@ -7,6 +7,8 @@ public class Sample {
         sample.morning("SATOSHI");
         sample.printAllCodes();
         sample.printOddCodes();
+        sample.printSpadeCodes();
+        sample.printdiamondCodes();
     }
     void hello() {
         System.out.println("Hello world");
@@ -21,11 +23,28 @@ public class Sample {
         System.out.println();
     }
     void printOddCodes() {
-        for(int i =1; i <= 52; i++) {
+        for(int i = 1; i <= 52; i++) {
             if (i % 2 == 1) {
                 System.out.print(i + " ");
             }
         }
         System.out.println();
     }
+    void printSpadeCodes() {
+        for(int i = 1; i <= 52; i++) {
+            if(i <= 13) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+    void printdiamondCodes() {
+        for(int i = 1; i <= 52; i++) {
+            if(i >= 27 && i <= 39) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
+
 }
