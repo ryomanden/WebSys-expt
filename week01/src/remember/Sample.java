@@ -11,6 +11,8 @@ public class Sample {
         sample.printDiamondCodes();
         sample.printNot3Codes1();
         sample.printNot3Codes2();
+        sample.printNot23Codes1();
+        sample.printNot23Codes2();
     }
     void hello() {
         System.out.println("Hello world");
@@ -58,12 +60,26 @@ public class Sample {
     }
     void printNot3Codes2() {
         for(int i = 0; i <= 52; i++) {
-            if(i % 3 != 0) {
+            if(!(i % 3 == 0)) {
                 System.out.print(i + " ");
             }
         }
         System.out.println();
     }
-
+    void printNot23Codes1() {
+        for(int i = 1; i <= 52; i++) {
+            if((i % 2 != 0) && (i % 3 != 0)) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }void printNot23Codes2() {
+        for(int i = 1; i <= 52; i++) {
+            if(!((i % 2 == 0) || (i % 3 == 0))) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
+    }
 
 }
