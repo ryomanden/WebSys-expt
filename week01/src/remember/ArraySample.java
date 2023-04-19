@@ -15,6 +15,7 @@ public class ArraySample {
         sample.printData();
 
         sample.primesum();
+        sample.shuffle();
 
         int r = (int)(Math.random() * 5);
         System.out.println(r);
@@ -59,6 +60,10 @@ public class ArraySample {
     }
 
     void shuffle() {
-
+        for(int i = 0; i < data.length; i++) {
+            swap(i, (int)(Math.random() * data.length));
+            System.out.print(data[i] + " ");
+        }
+        System.out.println();
     }
 }
