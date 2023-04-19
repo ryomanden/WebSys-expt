@@ -29,7 +29,7 @@ public class CardDeck {
     }
 
     public int getCodeAt(int x) {
-        return 0;
+        return cards.get(x);
     }
 
     private static String code2label(int code) {
