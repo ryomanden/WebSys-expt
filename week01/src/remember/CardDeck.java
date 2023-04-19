@@ -33,11 +33,17 @@ public class CardDeck {
     }
 
     private static String code2label(int code) {
-        return "" + code;
+        String ans = "";
+        char char1[] = {'S', 'H', 'D', 'C'};
+        char char2[] = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
+
+        ans = String.valueOf(char1[(code - 1) / 13]);
+        ans += String.valueOf(char2[(code - 1) % 13]);
+
+        return ans;
     }
 
     public void shuffle() {
-
     }
 
     public int takeCard() {
@@ -50,7 +56,7 @@ public class CardDeck {
         System.out.println(deck.getSize());
         int c1 = deck.getCodeAt(0);
         System.out.println(code2label(c1));
-        int c2 = deck.getCodeAt(2);
+        int c2 = deck.getCodeAt(1);
         System.out.println(code2label(c2));
         deck.print();
     }
