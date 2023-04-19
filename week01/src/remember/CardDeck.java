@@ -63,5 +63,6 @@ public class CardDeck {
         System.out.println(code2label(c2));
         deck.print();
         deck.shuffle();
+        deck.print();
     }
 }
