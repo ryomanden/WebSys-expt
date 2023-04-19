@@ -25,7 +25,7 @@ public class CardDeck {
     }
 
     public int getSize() {
-        return 0;
+        return cards.size();
     }
 
     public int getCodeAt(int x) {
