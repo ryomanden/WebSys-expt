@@ -33,7 +33,20 @@ public class CardDeck {
     }
 
     private static String code2label(int code) {
-        return "" + code;
+        switch ((code - 1) / 13) {
+            case 0:
+                return "SA";
+            case 1:
+                return "H2";
+            case 2:
+                return "D5";
+            case 3:
+                return "CT";
+            case 4:
+                return "CK";
+            default:
+                return "";
+        }
     }
 
     public void shuffle() {
@@ -50,7 +63,7 @@ public class CardDeck {
         System.out.println(deck.getSize());
         int c1 = deck.getCodeAt(0);
         System.out.println(code2label(c1));
-        int c2 = deck.getCodeAt(2);
+        int c2 = deck.getCodeAt(1);
         System.out.println(code2label(c2));
         deck.print();
     }
