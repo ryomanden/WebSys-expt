@@ -21,7 +21,7 @@ public class ListSample {
         sample.printData();
 
         sample.primesum();
-        //sample.shuffle();
+        sample.shuffle();
 
         int r = (int)(Math.random() * 5);
         System.out.println(r);
@@ -54,13 +54,19 @@ public class ListSample {
 
     void primesum() {
         List<Integer> ps = new ArrayList<>();
+
+        for(int i = 0; i < prime.length - 1; i++) {
+            ps.add(prime[i] + prime[i + 1]);
+            System.out.print(ps.get(i) + " ");
+        }
+        System.out.println();
     }
 
-//    void shuffle() {
-//        for(int i = 0; i < data.length; i++) {
-//            swap(i, (int)(Math.random() * data.length));
-//            System.out.print(data[i] + " ");
-//        }
-//        System.out.println();
-//    }
+    void shuffle() {
+        for(int i = 0; i < data.size(); i++) {
+            swap(i, (int)(Math.random() * data.size()));
+            System.out.print(data.get(i) + " ");
+        }
+        System.out.println();
+    }
 }
