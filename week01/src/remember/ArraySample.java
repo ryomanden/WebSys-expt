@@ -49,7 +49,13 @@ public class ArraySample {
     }
 
     void primesum() {
-        int ps[] = new int[0];
+        int ps[] = new int[prime.length - 1];
+
+        for(int i = 0; i < ps.length; i++) {
+            ps[i] = prime[i] + prime[i + 1];
+            System.out.print(ps[i] + " ");
+        }
+        System.out.println();
     }
 
     void shuffle() {
