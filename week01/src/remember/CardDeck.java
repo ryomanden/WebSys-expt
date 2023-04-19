@@ -11,11 +11,16 @@ public class CardDeck {
 
     public CardDeck() {
         cards = new ArrayList<>();
-        cards.add(1);
-        cards.add(15);
-        cards.add(31);
-        cards.add(49);
-        cards.add(52);
+//        cards.add(1);
+//        cards.add(15);
+//        cards.add(31);
+//        cards.add(49);
+//        cards.add(52);
+
+        // create Deck
+        for(int i = 1; i <= 52; i++) {
+            cards.add(i);
+        }
     }
 
     public void print() {
@@ -50,6 +55,7 @@ public class CardDeck {
     }
 
     public int takeCard() {
+        cards.remove(0);
         return 0;
     }
 
@@ -64,5 +70,11 @@ public class CardDeck {
         deck.print();
         deck.shuffle();
         deck.print();
+        deck.takeCard();
+        deck.print();
+//        deck.takeCard();
+//        deck.print();
+//        deck.takeCard();
+//        deck.print();
     }
 }
