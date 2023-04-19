@@ -92,7 +92,7 @@ public class Sample {
     }
     String code2suit(int code) {
         int id = 0;
-        switch(code / 13) {
+        switch((code - 1) / 13) {
             case 0:
                 return "スペド";
             case 1:
