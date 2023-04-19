@@ -2,6 +2,8 @@ package remember;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class CardDeck {
@@ -44,6 +46,7 @@ public class CardDeck {
     }
 
     public void shuffle() {
+        Collections.shuffle(cards);
     }
 
     public int takeCard() {
@@ -59,5 +62,6 @@ public class CardDeck {
         int c2 = deck.getCodeAt(1);
         System.out.println(code2label(c2));
         deck.print();
+        deck.shuffle();
     }
 }
