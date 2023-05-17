@@ -6,6 +6,7 @@ import java.util.List;
 
 public class PokerModel {
 	int games;
+	int count[];
 
 	public PokerModel() {
 
@@ -62,9 +63,6 @@ public class PokerModel {
 	//		}
 	//	}
 
-	
-	
-	
 	/** 役の判別を行い、チップを増減させる */
 	public void evaluate() {
 		int red = countRed();
@@ -82,12 +80,12 @@ public class PokerModel {
 		}
 		chips += point;
 		message += ": " + chips;
+		countNumber();
 	}
 
-	/** 7 の枚数を返す */
 	int countSeven() {
 		int num = 0;
-		for (int id: handcards) {
+		for (int id : handcards) {
 			if ((id == 7) || (id == 20) || (id == 33) || (id == 46)) {
 				num += 1;
 			}
@@ -95,10 +93,9 @@ public class PokerModel {
 		return num;
 	}
 
-	/** 赤の枚数を返す */
 	int countRed() {
 		int num = 0;
-		for (int id: handcards) {
+		for (int id : handcards) {
 			if ((id <= 14) || (39 <= id)) {
 				num += 1;
 			}
@@ -106,10 +103,17 @@ public class PokerModel {
 		return num;
 	}
 
-	
-	
-	
-	
+	void countNumber() {
+		count = new int[13];
+		for (int id: handcards) {
+			count[(id - 1) % 13] += 1;
+		}
+		for (int n: count) {
+			System.out.print(n + " ");
+		}
+		System.out.println();
+	}
+
 	public int getGames() {
 		return games;
 	}
