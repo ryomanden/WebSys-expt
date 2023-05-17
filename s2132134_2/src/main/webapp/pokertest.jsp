@@ -15,7 +15,7 @@ PokerModel model = new PokerModel();
 <%
 model.reset();
 model.nextgame();
-model.setHandcards(1, 2, 3, 4, 14);
+model.setHandcards(9, 10, 11, 12, 13);
 model.evaluate();
 %>
 <img src="cards/<%= model.getHandcardAt(0) %>.png" width="60" height="90">
