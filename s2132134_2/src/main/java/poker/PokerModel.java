@@ -11,7 +11,6 @@ public class PokerModel {
 	boolean isStraight, isFlush;
 
 	public PokerModel() {
-
 		deckcards = new ArrayList<>();
 		handcards = new ArrayList<>();
 	}
@@ -40,7 +39,7 @@ public class PokerModel {
 			System.out.printf("%d ", n);
 		}
 		System.out.println();
-		message = "交換するカードをチェックしてください";
+		message = "交換するカードを選択してください";
 		buttonLabel = "交換";
 		games++;
 	}
@@ -57,12 +56,13 @@ public class PokerModel {
 		buttonLabel = "次のゲーム";
 	}
 
-	/** 役の判別を行い、チップを増減させる */
 	public void evaluate() {
 		int red = countRed();
 		int seven = countSeven();
 		int point = 0;
 		countNumber();
+		
+//		judge hand & add(reduce) chip
 		if (isStraight && isFlush && (count[12] == 1)) {
 			message = "ロイヤルストレートフラッシュ";
 			point = 400;
@@ -101,9 +101,14 @@ public class PokerModel {
 			point = -100;
 		}
 		chips += point;
-		message += ": " + chips;
+		message += ": " + point + "pt";
+		if (chips<= 0) {
+			message = "ゲームオーバー";
+			System.out.println("Game OVER");
+		}
 	}
 
+//	count "7"
 	int countSeven() {
 		int num = 0;
 		for (int id : handcards) {
@@ -114,6 +119,7 @@ public class PokerModel {
 		return num;
 	}
 
+//	count "red"
 	int countRed() {
 		int num = 0;
 		for (int id : handcards) {
@@ -124,6 +130,7 @@ public class PokerModel {
 		return num;
 	}
 
+//	count number of cards
 	void countNumber() {
 		count = new int[13];
 		suit = new int[4];
@@ -150,6 +157,8 @@ public class PokerModel {
 			}
 			System.out.print(n + " ");
 		}
+		
+//		judge "Straight"
 		int tmp = 0;
 		isStraight = false;
 		for (int i = 0; i < 13; i++) {
@@ -165,10 +174,13 @@ public class PokerModel {
 			isStraight = true;
 			System.out.println("Straight");
 		}
+		
+//		judge "Flush"
 		isFlush = false;
 		for (int suit: suit) {
 			if (suit == 5) {
 				isFlush = true;
+				System.out.println("Flush");
 			}
 		}
 		System.out.println();
