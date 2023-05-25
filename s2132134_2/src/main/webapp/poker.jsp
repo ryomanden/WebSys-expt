@@ -19,16 +19,10 @@ String label = model.getButtonLabel();
 
 	<!-- Information -->
 	<div class="m-5">
-		<p
-			class="mt-3 w-fit border text-slate-700 border-slate-100 rounded-lg overflow-hidden">
-			<span class="p-1 inline bg-slate-100">ゲーム回数</span>
-			<%=model.getGames()%>
-		</p>
-		<p
-			class="mt-3 w-fit border text-slate-700 border-slate-100 rounded-lg overflow-hidden">
-			<span class="p-1 inline bg-slate-100"> チップ </span>
-			<%=model.getChips()%>
-		</p>
+		<p class="mt-3 w-fit border text-slate-700 border-slate-100 rounded-lg overflow-hidden">
+			<span class="p-1 inline bg-slate-100">ゲーム回数</span>　<%=model.getGames()%>　</p>
+		<p class="mt-3 w-fit border text-slate-700 border-slate-100 rounded-lg overflow-hidden">
+			<span class="p-1 inline bg-slate-100">　チップ　</span>　<%=model.getChips()%>　</p>
 
 		<!-- Message -->
 		<div
