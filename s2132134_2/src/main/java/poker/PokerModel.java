@@ -5,49 +5,60 @@ import java.util.Collections;
 import java.util.List;
 
 public class PokerModel {
-	int games;
+	int games, chips;
 	int count[], suit[];
 	int two, three, four;
 	boolean isStraight, isFlush;
+	String buttonLabel, message;
 
+	/* __ CONSTRUCTOR __ */
 	public PokerModel() {
 		deckcards = new ArrayList<>();
 		handcards = new ArrayList<>();
 	}
 
+	// reset game
 	public void reset() {
+		// reset score
 		games = 0;
 		chips = 500;
 	}
 
+	// next game
 	public void nextgame() {
 
+		// new deckcard
 		deckcards.clear();
 		for (int i = 1; i <= 52; i++) {
 			deckcards.add(i);
 		}
 		Collections.shuffle(deckcards);
 
+		// reset and new handcard
 		handcards.clear();
 		for (int i = 0; i < 5; i++) {
 			int n = deckcards.remove(0);
 			handcards.add(n);
 		}
 
-		System.out.printf("%d: ", deckcards.size());
+		/* -- below is print deckcards in console -- */
+		System.out.printf("deckcards %d: ", deckcards.size());
 		for (int n : deckcards) {
 			System.out.printf("%d ", n);
 		}
 		System.out.println();
+
+		// change message and button label
 		message = "交換するカードを選択してください";
 		buttonLabel = "交換";
-		games++;
+		games ++; // <-- game count
 	}
 
 	public void change(List<String> index) {
 		System.out.println("index=" + index);
 
-		for (String i : index) { // <-- Checked card's shuffle
+		/* -- below is selected card's shuffle -- */
+		for (String i : index) {
 			int c = deckcards.remove(0);
 			handcards.set(Integer.parseInt(i), c);
 		}
@@ -56,23 +67,24 @@ public class PokerModel {
 		buttonLabel = "次のゲーム";
 	}
 
+	// evaluate handcards and judge point
 	public void evaluate() {
 		int red = countRed();
 		int seven = countSeven();
 		int point = 0;
 		countNumber();
-		
-//		judge hand & add(reduce) chip
+
+		/* -- below is judge hand & add(reduce) chip -- */
 		if (isStraight && isFlush && (count[12] == 1)) {
 			message = "ロイヤルストレートフラッシュ";
 			point = 400;
 		} else if (isStraight && isFlush) {
 			message = "ストレートフラッシュ";
 			point = 300;
-		} else if(four == 1) {
+		} else if (four == 1) {
 			message = "フォーカード";
 			point = 250;
-		} else if (three == 1 && two == 1){
+		} else if (three == 1 && two == 1) {
 			message = "フルハウス";
 			point = 200;
 		} else if (three == 1) {
@@ -102,41 +114,41 @@ public class PokerModel {
 		}
 		chips += point;
 		message += ": " + point + "pt";
-		if (chips<= 0) {
+		if (chips <= 0) {
 			message = "ゲームオーバー";
 			System.out.println("Game OVER");
 		}
 	}
 
-//	count "7"
+	// count "7"
 	int countSeven() {
 		int num = 0;
 		for (int id : handcards) {
 			if ((id == 7) || (id == 20) || (id == 33) || (id == 46)) {
-				num += 1;
+				num++;
 			}
 		}
 		return num;
 	}
 
-//	count "red"
+	// count "red"
 	int countRed() {
 		int num = 0;
 		for (int id : handcards) {
 			if ((id <= 14) || (39 <= id)) {
-				num += 1;
+				num ++;
 			}
 		}
 		return num;
 	}
 
-//	count number of cards
+	// count number of cards
 	void countNumber() {
 		count = new int[13];
 		suit = new int[4];
 		for (int id : handcards) {
-			count[(id - 1) % 13] += 1;
-			suit[(int)(Math.floor((id - 1) - 1) / 13)] +=1;
+			count[(id - 1) % 13] ++;
+			suit[(int) (Math.floor((id - 1) - 1) / 13)] += 1;
 		}
 		two = 0;
 		three = 0;
@@ -144,29 +156,29 @@ public class PokerModel {
 		for (int n : count) {
 			switch (n) {
 			case 2:
-				two += 1;
+				two ++;
 				break;
 			case 3:
-				three += 1;
+				three ++;
 				break;
 			case 4:
-				four += 1;
+				four ++;
 				break;
 			default:
 				break;
 			}
 			System.out.print(n + " ");
 		}
-		
-//		judge "Straight"
+
+		// judge "Straight"
 		int tmp = 0;
 		isStraight = false;
 		for (int i = 0; i < 13; i++) {
 			if (count[i] == 1) {
 				if (tmp == 0) {
-					tmp += 1;
+					tmp ++;
 				} else if (count[i - 1] == 1) {
-					tmp += 1;
+					tmp ++;
 				}
 			}
 		}
@@ -174,10 +186,10 @@ public class PokerModel {
 			isStraight = true;
 			System.out.println("Straight");
 		}
-		
-//		judge "Flush"
+
+		// judge "Flush"
 		isFlush = false;
-		for (int suit: suit) {
+		for (int suit : suit) {
 			if (suit == 5) {
 				isFlush = true;
 				System.out.println("Flush");
@@ -190,28 +202,25 @@ public class PokerModel {
 		return games;
 	}
 
-	int chips;
-
 	List<Integer> deckcards;
-
 	List<Integer> handcards;
 
-	String buttonLabel;
-
-	String message;
-
+	// return chip count
 	public int getChips() {
 		return chips;
 	}
 
+	// return handcards
 	public int getHandcardAt(int i) {
 		return handcards.get(i);
 	}
 
+	// return button label
 	public String getButtonLabel() {
 		return buttonLabel;
 	}
 
+	// return status message
 	public String getMessage() {
 		return message;
 	}

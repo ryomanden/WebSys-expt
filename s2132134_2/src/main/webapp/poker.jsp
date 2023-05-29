@@ -19,9 +19,11 @@ String label = model.getButtonLabel();
 
 	<!-- Information -->
 	<div class="m-5">
-		<p class="mt-3 w-fit border text-slate-700 border-slate-100 rounded-lg overflow-hidden">
+		<p
+			class="mt-3 w-fit border text-slate-700 border-slate-100 rounded-lg overflow-hidden">
 			<span class="p-1 inline bg-slate-100">ゲーム回数</span>　<%=model.getGames()%>　</p>
-		<p class="mt-3 w-fit border text-slate-700 border-slate-100 rounded-lg overflow-hidden">
+		<p
+			class="mt-3 w-fit border text-slate-700 border-slate-100 rounded-lg overflow-hidden">
 			<span class="p-1 inline bg-slate-100">　チップ　</span>　<%=model.getChips()%>　</p>
 
 		<!-- Message -->
@@ -30,9 +32,10 @@ String label = model.getButtonLabel();
 
 		<!-- Application -->
 		<form action="/s2132134_2/PokerServlet" method="POST">
-		
+
 			<!-- Trump List -->
-			<div class="inline-grid grid-cols-5 gap-1.5">
+			<div
+				class="p-3 pt-5 relative inline-grid grid-cols-5 gap-1.5 border border-slate-100 after:absolute after:content-['手札'] after:-top-3 after:bg-slate-100 after:px-2 after:py-.05 after:rounded-full after:left-1/2 rounded-lg">
 				<label
 					class="p-3 relative w-fit block [&:has(input[type='checkbox']:checked)]:bg-slate-100 after:content-['Change'] after:hidden [&:has(input[type='checkbox']:checked)]:after:block after:absolute after:bg-blue after:top-1 after:left-1 after:bg-red-500 after:px-1 after:text-slate-100 after:text-xs after:rounded-full rounded-lg"><img
 					src="cards/<%=model.getHandcardAt(0)%>.png" width="100"
@@ -54,7 +57,7 @@ String label = model.getButtonLabel();
 					src="cards/<%=model.getHandcardAt(4)%>.png" width="100"
 					height="150"><input type="checkbox" name="change" value="4"></label>
 			</div>
-			
+
 			<!-- Button -->
 			<div class="w-32 flex flex-col">
 				<!-- Change/NextGame -->
