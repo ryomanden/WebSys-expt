@@ -133,4 +133,40 @@ public class AppearDAO {
 		}
 		return list;
 	}
+	public List<Appear> findAll(String item, String order) {
+		List<Appear> list = new ArrayList<>();
+		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, "user", "pass");
+			String sql = "SELECT id, POKEMON.番号, 名前, 県名, 市名, 日付, 時刻 FROM APPEAR JOIN SHI ON APPEAR.市コード = SHI.市コード JOIN KEN ON SHI.県コード = KEN.県コード JOIN POKEMON ON APPEAR.番号 = POKEMON.番号 ORDER BY " + item + " " + order;
+			PreparedStatement pre = conn.prepareStatement(sql);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("ID");
+				int number = rs.getInt("番号");
+				String name = rs.getString("名前");
+				String ken = rs.getString("県名");
+				String shi = rs.getString("市名");
+				String datestr = rs.getString("日付");
+				Date date = Date.valueOf(datestr);
+				String timestr = rs.getString("時刻");
+				Time time = Time.valueOf(timestr);
+				Appear p = new Appear(id, number, name, ken, shi, date, time);
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return list;
+	}
 }

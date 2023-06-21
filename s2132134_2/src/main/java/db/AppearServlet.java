@@ -54,15 +54,17 @@ public class AppearServlet extends HttpServlet {
 	void selectAll(HttpServletRequest request, HttpServletResponse response, String item, String order)
 			throws ServletException {
 		AppearDAO appearDAO = new AppearDAO();
-		List<Appear> list = appearDAO.findAll();
+		List<Appear> list = (item != null || order != null) ? appearDAO.findAll(item,order) : appearDAO.findAll();
 		request.setAttribute("list", list);
 	}
 
 	/** DAOを呼び出す */
 	void insert(String newnumber, String newshicode) {
+		AppearDAO appearDAO = new AppearDAO();
 		try {
 			int num = Integer.parseInt(newnumber);
 			int code = Integer.parseInt(newshicode);
+			appearDAO.insert(num, code);
 		} catch (NumberFormatException e) {
 			System.out.println("不正な番号または市コードが入力されました" + e.getMessage());
 		}
@@ -70,8 +72,10 @@ public class AppearServlet extends HttpServlet {
 
 	/** DAOを呼び出す */
 	void delete(String deleteid) {
+		AppearDAO appearDAO = new AppearDAO();
 		try {
 			int id = Integer.parseInt(deleteid);
+			appearDAO.delete(id);
 		} catch (NumberFormatException e) {
 			System.out.println("不正なIDが入力されました" + e.getMessage());
 		}
