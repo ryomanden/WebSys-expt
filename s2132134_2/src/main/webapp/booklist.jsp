@@ -13,10 +13,10 @@
 	<% if (booklist != null) { %>
 	<ul>
 		<% for (Booklist list: booklist) { %>
-		<li><a href="book?bookid=<%=list.getBookId()%>"><%=list.getTitle() %> / <%=list.getAuthor() %></a></li>
+		<li><a href="book?bookID=<%=list.getBookId()%>"><%=list.getTitle() %> / <%=list.getAuthor() %></a></li>
 		<% } %>
 	</ul>
-	<a href="bookmark">Bookmark</a>
+	<a href="favorite?userID=1">Bookmark</a>
 	<% } %>
 </body>
 </html>

@@ -1,7 +1,6 @@
 package bookmark;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +24,8 @@ public class BookServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/book.jsp");
-		Booklist(request,response);
+		String bookID = request.getParameter("bookID");
+		Book(request,response,Integer.parseInt(bookID));
 		dispatcher.forward(request, response);
 	}
 
@@ -35,11 +35,11 @@ public class BookServlet extends HttpServlet {
 	}
 	
 	
-	void Booklist(HttpServletRequest request, HttpServletResponse response)
+	void Book(HttpServletRequest request, HttpServletResponse response, int bookID)
 			throws ServletException {
 		BookmarkDAO bookmarkDAO = new BookmarkDAO();
-		List<Booklist> list = bookmarkDAO.Booklist();
-		request.setAttribute("list", list);
+		Booklist book = bookmarkDAO.Book(bookID);
+		request.setAttribute("book", book);
 	}
 
 }

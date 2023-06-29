@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/bookmark")
+@WebServlet("/favorite")
 public class BookmarkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,7 +22,8 @@ public class BookmarkServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/bookmark.jsp");
-		Booklist(request,response);
+		String userID = request.getParameter("userID");
+		Booklist(request,response,Integer.parseInt(userID));
 		dispatcher.forward(request, response);
 	}
 
@@ -32,10 +33,10 @@ public class BookmarkServlet extends HttpServlet {
 	}
 	
 	
-	void Booklist(HttpServletRequest request, HttpServletResponse response)
+	void Booklist(HttpServletRequest request, HttpServletResponse response, int userID)
 			throws ServletException {
 		BookmarkDAO bookmarkDAO = new BookmarkDAO();
-		List<Booklist> list = bookmarkDAO.Booklist();
+		List<Booklist> list = bookmarkDAO.Booklist(userID);
 		request.setAttribute("list", list);
 	}
 
