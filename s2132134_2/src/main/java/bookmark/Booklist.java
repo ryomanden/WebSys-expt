@@ -5,13 +5,13 @@ public class Booklist {
 	private int bookId;
 	private String title;
 	private String author;
-	private Date created_at;
+	private Date createdAt;
 	
-	public Booklist(int bookId, String title,String author, Date created_at) {
+	public Booklist(int bookId, String title,String author, Date createdAt) {
 		this.bookId = bookId;
 		this.title = title;
 		this.author = author;
-		this.created_at = created_at;
+		this.createdAt = createdAt;
 	}
 	
 	public int getBookId() {
@@ -24,6 +24,6 @@ public class Booklist {
 		return author;
 	}
 	public Date getCreatedAt() {
-		return created_at;
+		return createdAt;
 	}
 }

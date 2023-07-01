@@ -1,6 +1,7 @@
 package bookmark;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +40,9 @@ public class BookServlet extends HttpServlet {
 			throws ServletException {
 		BookmarkDAO bookmarkDAO = new BookmarkDAO();
 		Booklist book = bookmarkDAO.Book(bookID);
+		List<ReviewModel> review = bookmarkDAO.Reviewlist(bookID);
 		request.setAttribute("book", book);
+		request.setAttribute("review", review);
 	}
 
 }

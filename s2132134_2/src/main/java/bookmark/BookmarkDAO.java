@@ -115,5 +115,37 @@ public class BookmarkDAO {
 		}
 		return book;
 	}
+	
+	public List<ReviewModel> Reviewlist(int bookId) {
+		List<ReviewModel> list = new ArrayList<>();
+		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, "user", "pass");
+			String sql = "select * from reviews where book_id = ?";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setInt(1, bookId);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("ID");
+				int userId = rs.getInt("USER_ID");
+				String title = rs.getString("TITLE");
+				String comment = rs.getString("COMMENT");
+				list.add(new ReviewModel(id, bookId, userId, title, comment));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return list;
+	}
 
 }

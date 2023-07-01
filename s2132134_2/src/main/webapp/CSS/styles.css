@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.body-wrap {
+	@apply w-full pl-16 flex flex-col justify-center items-center
+}
+.body-inner {
+	@apply w-11/12 max-w-screen-md
+}
+.page-title {
+	@apply my-7 font-bold text-4xl
+}
+.form-wrap {
+	@apply w-full p-10 bg-white rounded-lg shadow-lg
+}
+.form-description {
+	@apply mb-4 text-center text-lg font-medium
+}
+.form-textinput {
+	@apply w-full mb-4 input input-bordered focus:border-primary focus:outline-none shadow-sm
+}
+.form-submit {
+	@apply mb-4 w-full btn btn btn-primary
+}
