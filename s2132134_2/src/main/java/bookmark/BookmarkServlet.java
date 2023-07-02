@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/favorite")
 public class BookmarkServlet extends HttpServlet {
@@ -21,10 +22,22 @@ public class BookmarkServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/bookmark.jsp");
-		String userID = request.getParameter("userID");
-		Booklist(request,response,Integer.parseInt(userID));
-		dispatcher.forward(request, response);
+		HttpSession session = request.getSession(true);
+		if (session.getAttribute("isLogin") == null) {
+			session.setAttribute("target", "/favorite");
+			request.getRequestDispatcher("/login").forward(request,response);
+		} else {
+			toBool isLogin = new toBool(session.getAttribute("isLogin"));
+			if (!isLogin.get()) {		
+				session.setAttribute("target", "/favorite");
+				request.getRequestDispatcher("/login").forward(request,response);
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/bookmark.jsp");
+				int userID = (int)session.getAttribute("userID");
+				Booklist(request,response,userID);
+				dispatcher.forward(request, response);
+			}
+		}
 	}
 
 

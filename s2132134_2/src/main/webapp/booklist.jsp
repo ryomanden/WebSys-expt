@@ -13,10 +13,10 @@
 <div class="body-wrap">
 	<div class="body-inner">
 		<h1 class="page-title">Book List</h1>
-		<div class="overflow-x-auto w-full">
-			<% if (booklist != null && booklist.size() > 0) {%>
-				<p class="text-xs ml-3 mb-3 text-slate-400"><%=booklist.size() %>冊の本があります。</p>
-				<table class="table w-full">
+		<% if (booklist != null && booklist.size() > 0) {%>
+			<p class="text-xs ml-3 mb-3 text-slate-400"><%=booklist.size() %>冊の本があります。</p>
+			<div class="border border-gray-100 rounded-3xl shadow-sm overflow-x-auto">
+				<table class="table w-full ">
 					<thead>
 						<tr>
 							<th>タイトル</th>
@@ -35,14 +35,14 @@
 							</tr>
 						<% } %>
 					</tbody>
-				</table>
-			<% } else { %>
-				<div class="alert alert-error w-fit">
-				  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-				  <span>Error: 本が見つかりませんでした。</span>
 				</div>
-			<% } %>
-		</div>
+			</table>
+		<% } else { %>
+			<div class="alert alert-error w-fit">
+			  <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+			  <span>Error: 本が見つかりませんでした。</span>
+			</div>
+		<% } %>
 	</div>	
 </div>
 </body>

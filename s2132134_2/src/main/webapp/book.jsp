@@ -19,9 +19,9 @@
 		<p class="mt-1 text-slate-500 ">出版日 : <%=book.getCreatedAt()%></p>
 		<%if (reviewList != null && reviewList.size() != 0) { %>
 			<% for (ReviewModel review: reviewList) { %>
-				<div class="mt-2 p-4 border border border-gray-100 rounded-lg shadow-sm">
+				<div class="mt-2 p-4 border border-gray-100 rounded-lg shadow-sm">
 					<p class="text-lg font-bold text-gray-90"><%=review.getReviewTitle()%></p>
-					<a href="" class="mt-1 text-xs font-medium text-gray-600 link link-hover">By ID:<%=review.getUserId()%>(ユーザー名出るように)</a>
+					<a href="user?userID=<%=review.getUserId() %>" class="mt-1 text-xs font-medium text-gray-600 link link-hover">By <%=review.getUserName()%></a>
 					<p class="mt-3 text-sm text-gray-500"><%=review.getComment()%></p>
 				</div>
 			<% } %>

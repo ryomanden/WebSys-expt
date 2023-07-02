@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/login")
@@ -20,25 +21,50 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
-		dispatcher.forward(request, response);
-	}
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html; charset=UTF-8");
-		String user = request.getParameter("user");
-		String pass = request.getParameter("pass");
-		String redirect = "/list";
-		System.out.println("username : "+ user);
-		System.out.println("password : "+ pass);
-		if (user == "" && pass == "") {
-			System.out.println("login success");
-			request.getRequestDispatcher(redirect).forward(request,response);
+		HttpSession session = request.getSession(true);
+		if (session.getAttribute("isLogin") == null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+			dispatcher.forward(request, response);			
 		} else {
-			System.out.println("login failre");
-			doGet(request, response);
+			toBool isLogin = new toBool(session.getAttribute("isLogin"));
+			if (!isLogin.get()) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+				dispatcher.forward(request, response);			
+			} else {
+				String target = (String)session.getAttribute("target");
+				request.getRequestDispatcher(target).forward(request, response);
+			}
 		}
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");		
+		HttpSession session = request.getSession(true);
+		
+		BookmarkDAO bookmarkDAO = new BookmarkDAO();
+		
+		String user = request.getParameter("user");
+		String pass = request.getParameter("pass");
+		
+		System.out.println("username : "+ user);
+		System.out.println("password : "+ pass);
+
+		session.setAttribute("userName", user);
+		
+		AuthModel auth = bookmarkDAO.Auth(user);
+		if (auth != null) {
+			System.out.println("username_db : "+ auth.getUserName());
+			System.out.println("password_db : "+ auth.getPasswd());
+		}
+		if (auth != null && auth.getPasswd().equals(pass)) {
+			session.setAttribute("isLogin", "true");
+			session.setAttribute("userID", auth.getUserId());
+			System.out.println("User ID = " + session.getAttribute("userID"));
+			System.out.println("login success");
+		} else {
+			session.setAttribute("isLogin", "false");			
+			System.out.println("login failre");
+		}
+		doGet(request, response);
+	}
 }
