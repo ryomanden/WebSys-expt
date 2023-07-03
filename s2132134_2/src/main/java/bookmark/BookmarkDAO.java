@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,9 @@ public class BookmarkDAO {
 				String author = rs.getString("AUTHOR");
 				String created = rs.getString("CREATED_AT");
 				Date created_at = Date.valueOf(created);
-				Booklist p = new Booklist(id, title, author, created_at);
+				LocalDate date = created_at.toLocalDate();
+				String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+				Booklist p = new Booklist(id, title, author, formattedDate);
 				list.add(p);
 			}
 		} catch (SQLException e) {
@@ -66,7 +70,9 @@ public class BookmarkDAO {
 				String author = rs.getString("AUTHOR");
 				String created = rs.getString("CREATED_AT");
 				Date created_at = Date.valueOf(created);
-				Booklist p = new Booklist(id, title, author, created_at);
+				LocalDate date = created_at.toLocalDate();
+				String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+				Booklist p = new Booklist(id, title, author, formattedDate);
 				list.add(p);
 			}
 		} catch (SQLException e) {
@@ -100,7 +106,9 @@ public class BookmarkDAO {
 				String author = rs.getString("AUTHOR");
 				String created = rs.getString("CREATED_AT");
 				Date created_at = Date.valueOf(created);
-				book = new Booklist(id, title, author, created_at);
+				LocalDate date = created_at.toLocalDate();
+				String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+				book = new Booklist(id, title, author, formattedDate);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -1,13 +1,12 @@
 package bookmark;
-import java.sql.Date;
 
 public class Booklist {
 	private int bookId;
 	private String title;
 	private String author;
-	private Date createdAt;
+	private String createdAt;
 	
-	public Booklist(int bookId, String title,String author, Date createdAt) {
+	public Booklist(int bookId, String title,String author, String createdAt) {
 		this.bookId = bookId;
 		this.title = title;
 		this.author = author;
@@ -23,7 +22,7 @@ public class Booklist {
 	public String getAuthor() {
 		return author;
 	}
-	public Date getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
 }

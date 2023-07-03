@@ -17,6 +17,7 @@
 		<h1 class="mt-7 font-bold text-4xl"><%=book.getTitle()%></h1>
 		<p class="mt-4 text-slate-500 ">著者 : <%=book.getAuthor()%></p>
 		<p class="mt-1 text-slate-500 ">出版日 : <%=book.getCreatedAt()%></p>
+		<div class="divider">読者のレビュー</div>
 		<%if (reviewList != null && reviewList.size() != 0) { %>
 			<% for (ReviewModel review: reviewList) { %>
 				<div class="mt-2 p-4 border border-gray-100 rounded-lg shadow-sm">

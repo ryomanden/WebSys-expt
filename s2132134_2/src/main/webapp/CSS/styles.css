@@ -23,3 +23,12 @@
 .form-submit {
 	@apply mb-4 w-full btn btn btn-primary
 }
+.side-active {
+	@apply relative flex justify-center rounded bg-blue-50 px-2 py-1.5 text-blue-700
+}
+.side-deactive {
+	@apply relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700
+}
+.side-tooltip {
+	@apply absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white opacity-0 group-hover:opacity-100
+}

@@ -17,7 +17,7 @@
 			<h1 class="page-title"><%=user.getUserName() %></h1>
 			<p class="mt-4 text-slate-500">自己紹介</p>
 			<p><%=user.getUserBio() %></p>
-			<div class="divider"></div>
+			<div class="divider"><%=user.getUserName() %> さんのレビュー</div>
 			<% if (reviewList != null && reviewList.size() != 0) { %>
 				<% for (ReviewModel review: reviewList) { %>
 					<div class="mt-2 p-4 border border-gray-100 rounded-lg shadow-sm">
