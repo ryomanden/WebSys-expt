@@ -20,7 +20,7 @@ public class AppearDAO {
 	}
 	/** 1件のデータを追加する．成功ならtrueを返す． */
 	public boolean insert(int number, int shicode) {
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -45,7 +45,7 @@ public class AppearDAO {
 	}
 	public boolean insert(int number, int shicode,
 			int year, int month, int day, int hour, int minute, int second) {
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -75,7 +75,7 @@ public class AppearDAO {
 		return false;
 	}
 	public boolean delete(int id) {
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -99,7 +99,7 @@ public class AppearDAO {
 	};
 	public List<Appear> findAll() {
 		List<Appear> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -135,7 +135,7 @@ public class AppearDAO {
 	}
 	public List<Appear> findAll(String item, String order) {
 		List<Appear> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");

@@ -20,7 +20,7 @@ public class UserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/user.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("./user.jsp");
 		String userID = request.getParameter("userID");
 		Book(request,response,Integer.parseInt(userID));
 		dispatcher.forward(request, response);

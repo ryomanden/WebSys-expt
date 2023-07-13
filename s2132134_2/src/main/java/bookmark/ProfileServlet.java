@@ -23,15 +23,15 @@ public class ProfileServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
 		if (session.getAttribute("isLogin") == null) {
-			session.setAttribute("target", "/profile");
-			request.getRequestDispatcher("/login").forward(request,response);
+			session.setAttribute("target", "./profile");
+			request.getRequestDispatcher("./login").forward(request,response);
 		} else {
 			toBool isLogin = new toBool(session.getAttribute("isLogin"));
-			if (!isLogin.get()) {		
-				session.setAttribute("target", "/profile");
-				request.getRequestDispatcher("/login").forward(request,response);
+			if (!isLogin.get()) {
+				session.setAttribute("target", "./profile");
+				request.getRequestDispatcher("./login").forward(request,response);
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("./profile.jsp");
 				int userID = (int)session.getAttribute("userID");
 				User(request, response, userID);
 				request.setAttribute("current", "profile");
@@ -42,7 +42,18 @@ public class ProfileServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");		
+		HttpSession session = request.getSession(true);
+		int userID = (int)session.getAttribute("userID");
+		updateBio(request,response,userID,request.getParameter("bio"));
 		doGet(request, response);
+	}
+	
+	void updateBio(HttpServletRequest request, HttpServletResponse response, int userID, String bio)
+			throws ServletException {
+		BookmarkDAO bookmarkDAO = new BookmarkDAO();
+		bookmarkDAO.updateBio(userID,bio);
 	}
 	
 	void User(HttpServletRequest request, HttpServletResponse response, int userID)
@@ -51,5 +62,4 @@ public class ProfileServlet extends HttpServlet {
 		UserModel user = bookmarkDAO.User(userID);
 		request.setAttribute("user",user);
 	}
-
 }

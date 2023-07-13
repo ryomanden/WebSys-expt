@@ -10,6 +10,13 @@ public class ReviewModel {
 	private String bookTitle;
 	private String bookAuthor;
 	
+	public ReviewModel(int reviewId,int bookId,int userId,String reviewTitle,String comment) {
+		this.reviewId = reviewId;
+		this.bookId = bookId;
+		this.userId = userId;
+		this.reviewTitle = reviewTitle;
+		this.comment = comment;
+	}
 	public ReviewModel(int reviewId,int bookId,int userId,String reviewTitle,String comment,String userName) {
 		this.reviewId = reviewId;
 		this.bookId = bookId;

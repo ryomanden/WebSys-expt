@@ -22,7 +22,7 @@ public class BookmarkDAO {
 	
 	public List<Booklist> Booklist() {
 		List<Booklist> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -56,7 +56,7 @@ public class BookmarkDAO {
 	}
 	public List<Booklist> Booklist(int userID) {
 		List<Booklist> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -87,12 +87,11 @@ public class BookmarkDAO {
 				}
 			}
 		}
-		System.out.println(userID);
 		return list;
 	}
 	public Booklist Book(int bookID) {
 		Booklist book = null;
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -126,7 +125,7 @@ public class BookmarkDAO {
 	}
 	public UserModel User(int userID) {
 		UserModel user = null;
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -155,9 +154,120 @@ public class BookmarkDAO {
 		}
 		return user;
 	}
+	public boolean updateBio(int userID,String bio) {
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, "user", "pass");
+			String sql = "UPDATE USERS SET BIOGRAPHY = ? WHERE ID = ?";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setInt(2, userID);
+			pre.setString(1, bio);
+			int result = pre.executeUpdate();
+			if (result == 1) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+	public ReviewModel Review(int userID, int bookID) {
+		ReviewModel review = null;
+		int id = 0, bookId = 0, userId = 0;
+		String title = null, comment = null;
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, "user", "pass");
+			String sql = "SELECT * FROM REVIEWS WHERE BOOK_ID = ? AND USER_ID = ?";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setInt(1, bookID);
+			pre.setInt(2, userID);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				id = rs.getInt("ID");
+				bookId = rs.getInt("BOOK_ID");
+				userId = rs.getInt("USER_ID");
+				title = rs.getString("TITLE");
+				comment = rs.getString("COMMENT");
+			}
+			review = new ReviewModel(id, bookId, userId, title, comment);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return review;
+	}
+	public boolean updateReview(int userID , int bookID, String title, String review) {
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, "user", "pass");
+			String sql = "UPDATE USERS SET TITLE = ?, COMMENT = ? WHERE USER_ID = ? AND BOOK_ID = ?";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1, title);
+			pre.setString(2, review);
+			pre.setInt(3, userID);
+			pre.setInt(4, bookID);
+			int result = pre.executeUpdate();
+			if (result == 1) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return createReview(userID,bookID,title,review);
+	}
+	public boolean createReview(int userID , int bookID, String title, String review) {
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, "user", "pass");
+			String sql = "INSERT INTO REVIEWS (BOOK_ID,USER_ID,TITLE,COMMENT)";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setInt(1, bookID);
+			pre.setInt(2, userID);
+			pre.setString(3, title);
+			pre.setString(4, review);
+			int result = pre.executeUpdate();
+			if (result == 1) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
 	public AuthModel Auth(String userName) {
 		AuthModel auth = null;
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -188,7 +298,7 @@ public class BookmarkDAO {
 	
 	public List<ReviewModel> Reviewlist(int bookId) {
 		List<ReviewModel> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -220,7 +330,7 @@ public class BookmarkDAO {
 	}
 	public List<ReviewModel> UserReviewlist(int userID) {
 		List<ReviewModel> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");

@@ -18,7 +18,7 @@ public class PokemonDAO {
 	}
 	public List<Pokemon> findAll() {
 		List<Pokemon> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -52,7 +52,7 @@ public class PokemonDAO {
 	
 	public List<Pokemon> pikachu(){
 		List<Pokemon> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -82,7 +82,7 @@ public class PokemonDAO {
 	}
 	public List<Pokemon> threeLetters(){
 		List<Pokemon> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -110,7 +110,7 @@ public class PokemonDAO {
 	}
 	public List<Pokemon> max(){
 		List<Pokemon> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
@@ -140,7 +140,7 @@ public class PokemonDAO {
 	}
 	public List<Pokemon> denki(){
 		List<Pokemon> list = new ArrayList<>();
-		String url = "jdbc:h2:tcp://localhost/~/s2132134";
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");

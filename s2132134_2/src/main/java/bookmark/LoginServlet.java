@@ -23,18 +23,18 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
 		if (session.getAttribute("isLogin") == null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("./login.jsp");
 			request.setAttribute("current", "login");
 			dispatcher.forward(request, response);			
 		} else {
 			toBool isLogin = new toBool(session.getAttribute("isLogin"));
 			if (!isLogin.get()) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("./login.jsp");
 				request.setAttribute("current", "login");
 				dispatcher.forward(request, response);			
 			} else {
 				String target = (String)session.getAttribute("target");
-				request.getRequestDispatcher((target != null) ? target : "list").forward(request, response);
+				request.getRequestDispatcher((target != null) ? target : "./list").forward(request, response);
 			}
 		}
 	}

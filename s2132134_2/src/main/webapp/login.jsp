@@ -13,7 +13,7 @@
 	<h1 class="page-title">Login</h1>
 		<div class="form-wrap">
 			<p class="form-description">サイトにログイン</p>
-			<form action="/s2132134_2/login" method="POST">
+			<form action="login" method="POST">
 				<input type="text" name="user" placeholder="username" class="form-textinput">
 				<input type="password" name="pass" placeholder="password" class="form-textinput">
 				<input type="submit" value="ログイン" class="form-submit">

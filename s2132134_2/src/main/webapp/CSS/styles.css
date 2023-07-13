@@ -32,3 +32,11 @@
 .side-tooltip {
 	@apply absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white opacity-0 group-hover:opacity-100
 }
+
+.form-textarea {
+	@apply w-full h-56 textarea textarea-bordered focus:border-primary focus:outline-none shadow-sm
+}
+
+.form-save {
+	@apply btn btn-primary ml-auto mt-4
+}

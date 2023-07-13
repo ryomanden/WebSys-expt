@@ -15,7 +15,7 @@
       <span
         class="grid h-10 w-10 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600"
       >
-        L
+        <i class="fa-solid fa-book"></i>
       </span>
     </div>
 	<!-- profile -->

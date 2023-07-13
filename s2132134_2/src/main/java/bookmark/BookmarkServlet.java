@@ -24,15 +24,15 @@ public class BookmarkServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
 		if (session.getAttribute("isLogin") == null) {
-			session.setAttribute("target", "/favorite");
-			request.getRequestDispatcher("/login").forward(request,response);
+			session.setAttribute("target", "./favorite");
+			request.getRequestDispatcher("./login").forward(request,response);
 		} else {
 			toBool isLogin = new toBool(session.getAttribute("isLogin"));
 			if (!isLogin.get()) {		
-				session.setAttribute("target", "/favorite");
-				request.getRequestDispatcher("/login").forward(request,response);
+				session.setAttribute("target", "./favorite");
+				request.getRequestDispatcher("./login").forward(request,response);
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/bookmark.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("./bookmark.jsp");
 				int userID = (int)session.getAttribute("userID");
 				Booklist(request,response,userID);
 				request.setAttribute("current", "favorite");
