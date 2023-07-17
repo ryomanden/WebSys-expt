@@ -23,21 +23,42 @@ public class BookServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("./book.jsp");
-		int bookID = IntegeCDr.parseInt(request.getParameter("bookID"));
-		int userID = (int)session.getAttribute("userID");
-		Book(request,response,bookID);
-		Review(request,response,userID,bookID);
-		dispatcher.forward(request, response);
+		int bookID = Integer.parseInt(request.getParameter("bookID"));
+		if (session.getAttribute("isLogin") == null) {
+			session.setAttribute("target", "./book?bookID="+String.valueOf(bookID));
+			request.getRequestDispatcher("./login").forward(request,response);
+		} else {
+			toBool isLogin = new toBool(session.getAttribute("isLogin"));
+			if (!isLogin.get()) {		
+				session.setAttribute("target", "./book?bookID="+String.valueOf(bookID));
+				request.getRequestDispatcher("./login").forward(request,response);
+			} else {
+				int userID = (int)session.getAttribute("userID");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("./book.jsp");
+				Book(request,response,bookID);
+				Review(request,response,userID,bookID);
+				FavoriteModel fav = getFav(userID,bookID);
+				Boolean isFav = (fav != null) ? true : false;
+				request.setAttribute("isFav", isFav);
+				dispatcher.forward(request, response);
+			}
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");		
 		HttpSession session = request.getSession(true);
-		int userID = (int)session.getAttribute("userID");
 		int bookID = Integer.parseInt(request.getParameter("bookID"));
-		updateReview(request,response,userID,bookID,request.getParameter("title"),request.getParameter("review"));
+		int userID = (int)session.getAttribute("userID");
+		Boolean isSuccess = false;
+		if (request.getParameter("reviewTitle") != null && request.getParameter("review") != null) {
+			isSuccess = updateReview(userID,bookID,request.getParameter("reviewTitle"),request.getParameter("review"));			
+		}
+		if (request.getParameter("fav") != null) {
+			isSuccess = setFav(userID,bookID);
+		}
+		request.setAttribute("isSuccess", isSuccess);
 		doGet(request, response);
 	}
 	
@@ -57,9 +78,17 @@ public class BookServlet extends HttpServlet {
 		request.setAttribute("myReview", review);
 	}
 
-	void updateReview(HttpServletRequest request, HttpServletResponse response, int userID, int bookID, String title, String review)
-			throws ServletException {
+	boolean updateReview(int userID, int bookID, String title, String review) {
 		BookmarkDAO bookmarkDAO = new BookmarkDAO();
-		bookmarkDAO.updateReview(userID, bookID, title, review);
+		return bookmarkDAO.updateReview(userID, bookID, title, review);
+	}
+	
+	FavoriteModel getFav(int userID, int bookID) {
+		BookmarkDAO bookmarkDAO = new BookmarkDAO();
+		return bookmarkDAO.getFav(userID, bookID);
+	}
+	boolean setFav(int userID, int bookID) {
+		BookmarkDAO bookmarkDAO = new BookmarkDAO();
+		return bookmarkDAO.setFav(userID, bookID);
 	}
 }

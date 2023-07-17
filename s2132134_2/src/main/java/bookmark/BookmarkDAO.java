@@ -218,7 +218,7 @@ public class BookmarkDAO {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
-			String sql = "UPDATE USERS SET TITLE = ?, COMMENT = ? WHERE USER_ID = ? AND BOOK_ID = ?";
+			String sql = "UPDATE REVIEWS SET TITLE = ?, COMMENT = ? WHERE USER_ID = ? AND BOOK_ID = ?";
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setString(1, title);
 			pre.setString(2, review);
@@ -244,7 +244,7 @@ public class BookmarkDAO {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, "user", "pass");
-			String sql = "INSERT INTO REVIEWS (BOOK_ID,USER_ID,TITLE,COMMENT)";
+			String sql = "INSERT INTO REVIEWS (BOOK_ID,USER_ID,TITLE,COMMENT) VALUES(?,?,?,?)";
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setInt(1, bookID);
 			pre.setInt(2, userID);
@@ -362,6 +362,138 @@ public class BookmarkDAO {
 		return list;
 	}
 	
+	public FavoriteModel getFav(int userId, int bookId) {
+		FavoriteModel fav = null;
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, "user", "pass");
+			String sql = "SELECT * FROM FAVORITES WHERE USER_ID = ? AND BOOK_ID = ?";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setInt(1, userId);
+			pre.setInt(2, bookId);
+			ResultSet rs = pre.executeQuery();
+			int p1;
+			int p2;
+			int p3;
+			while (rs.next()) {
+				p1 = rs.getInt("ID");
+				p2 = rs.getInt("BOOK_ID");
+				p3 = rs.getInt("USER_ID");
+				fav = new FavoriteModel(p1, p2, p3);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return fav;
+	}
 	
-
+	public Boolean setFav(int userId, int bookId) {
+		FavoriteModel fav = getFav(userId, bookId);
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
+		Connection conn = null;
+		if (fav == null) {			
+			try {
+				conn = DriverManager.getConnection(url, "user", "pass");
+				String sql = "INSERT INTO FAVORITES (USER_ID,BOOK_ID) VALUES(?,?)";
+				PreparedStatement pre = conn.prepareStatement(sql);
+				pre.setInt(1, userId);
+				pre.setInt(2, bookId);
+				int result = pre.executeUpdate();
+				if (result == 1) return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						return null;
+					}
+				}
+			}
+		} else {
+			try {
+				conn = DriverManager.getConnection(url, "user", "pass");
+				String sql = "DELETE FROM FAVORITES WHERE USER_ID = ? AND BOOK_ID = ?";
+				PreparedStatement pre = conn.prepareStatement(sql);
+				pre.setInt(1, userId);
+				pre.setInt(2, bookId);
+				int result = pre.executeUpdate();
+				if (result == 1) return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						return null;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	public String signUp(String userName, String Pass) {
+		String url = "jdbc:h2:tcp://localhost/./s2132134";
+		int count = 0;
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, "user", "pass");
+			String sql = "SELECT COUNT(ID) FROM USERS WHERE NAME = ?;";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,userName);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				count = rs.getInt("COUNT(ID)");
+			}
+			if (count == 0) {
+				try {
+					sql = "INSERT INTO USERS (NAME,PASSWD) VALUES(?,?)";
+					pre = conn.prepareStatement(sql);
+					pre.setString(1, userName);
+					pre.setString(2, Pass);
+					int result = pre.executeUpdate();
+					if (result == 1) return "success";
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					if (conn != null) {
+						try {
+							conn.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+							return "fail";
+						}
+					}
+				}
+			} else {
+				return "duplicate";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return "fail";
+				}
+			}
+		}
+		return "success";
+	}
 }

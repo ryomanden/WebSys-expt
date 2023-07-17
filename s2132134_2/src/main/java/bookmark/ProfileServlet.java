@@ -46,14 +46,15 @@ public class ProfileServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");		
 		HttpSession session = request.getSession(true);
 		int userID = (int)session.getAttribute("userID");
-		updateBio(request,response,userID,request.getParameter("bio"));
+		boolean isSuccess = updateBio(request,response,userID,request.getParameter("bio"));
+		request.setAttribute("isSuccess", isSuccess);
 		doGet(request, response);
 	}
 	
-	void updateBio(HttpServletRequest request, HttpServletResponse response, int userID, String bio)
+	boolean updateBio(HttpServletRequest request, HttpServletResponse response, int userID, String bio)
 			throws ServletException {
 		BookmarkDAO bookmarkDAO = new BookmarkDAO();
-		bookmarkDAO.updateBio(userID,bio);
+		return bookmarkDAO.updateBio(userID,bio);
 	}
 	
 	void User(HttpServletRequest request, HttpServletResponse response, int userID)
